@@ -1,0 +1,11 @@
+{
+  "name": "request-data-pipeline",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "url": "https://github.com/WesleyLuk90/request-data-pipeline.git",
+    "type": "git"
+  },
+  "author": "Wesley Luk <wesleyluk@gmail.com>",
+  "license": "MIT"
+}
