@@ -1,25 +1,33 @@
 {
-  "name": "request-data-pipeline",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": {
-    "url": "https://github.com/WesleyLuk90/request-data-pipeline.git",
-    "type": "git"
-  },
-  "author": "Wesley Luk <wesleyluk@gmail.com>",
-  "license": "MIT",
-  "devDependencies": {
-    "babel-core": "^6.18.2",
-    "babel-loader": "^6.2.7",
-    "eslint": "^3.10.0",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^3.0.1",
-    "eslint-plugin-react": "^6.6.0"
-  },
-  "dependencies": {
-    "bootstrap-sass": "^3.3.7",
-    "express": "^4.14.0",
-    "jasmine": "^2.5.2",
-    "webpack-livereload-plugin": "^0.9.0"
-  }
+    "name": "request-data-pipeline",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "dev-start": "nodemon --use_strict",
+        "dev-test": "nodemon --use_strict node_modules/jasmine/bin/jasmine.js",
+        "test": "node --use_strict node_modules/jasmine/bin/jasmine.js"
+    },
+    "repository": {
+        "url": "https://github.com/WesleyLuk90/request-data-pipeline.git",
+        "type": "git"
+    },
+    "author": "Wesley Luk <wesleyluk@gmail.com>",
+    "license": "MIT",
+    "devDependencies": {
+        "babel-core": "^6.18.2",
+        "babel-loader": "^6.2.7",
+        "eslint": "^3.10.0",
+        "eslint-config-airbnb": "^13.0.0",
+        "eslint-plugin-import": "^2.2.0",
+        "eslint-plugin-react": "^6.6.0",
+        "nodemon": "^1.11.0"
+    },
+    "dependencies": {
+        "bootstrap-sass": "^3.3.7",
+        "bottlejs": "^1.5.0",
+        "eslint-plugin-jsx-a11y": "2.2.3",
+        "express": "^4.14.0",
+        "jasmine": "^2.5.2",
+        "webpack-livereload-plugin": "^0.9.0"
+    }
 }
