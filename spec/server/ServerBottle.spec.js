@@ -1,4 +1,4 @@
-const serverBottle = require('../../../src/server/ServerBottle');
+const serverBottle = require('../../src/server/ServerBottle');
 const Bottle = require('bottlejs');
 
 describe('ServerBottle', () => {

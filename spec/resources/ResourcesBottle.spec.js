@@ -1,4 +1,4 @@
-const resourcesBottle = require('../../../src/resources/ResourcesBottle');
+const resourcesBottle = require('../../src/resources/ResourcesBottle');
 const Bottle = require('bottlejs');
 
 describe('ResourcesBottle', () => {

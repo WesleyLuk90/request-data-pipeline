@@ -1,4 +1,4 @@
-const BottleBuilder = require('../../../src/util/BottleBuilder');
+const BottleBuilder = require('../../src/util/BottleBuilder');
 const Bottle = require('bottlejs');
 
 describe('BottleBuilder', () => {

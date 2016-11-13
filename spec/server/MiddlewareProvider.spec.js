@@ -1,8 +1,8 @@
 const _ = require('lodash');
 
-const MiddlewareProvider = require('../../../src/server/MiddlewareProvider');
-const AbstractMiddleware = require('../../../src/server/middleware/AbstractMiddleware');
-const Bottle = require('../../../src/Bottle');
+const MiddlewareProvider = require('../../src/server/MiddlewareProvider');
+const AbstractMiddleware = require('../../src/server/middleware/AbstractMiddleware');
+const Bottle = require('../../src/Bottle');
 
 describe('MiddlewareProvider', () => {
     class MockMiddleware extends AbstractMiddleware {
