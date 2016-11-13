@@ -1,5 +1,5 @@
-const serverBottle = require('./server/ServerBottle');
+const bottle = require('./Bottle');
 
-const server = serverBottle.container.server;
+const server = bottle.container.server;
 
 server.start();

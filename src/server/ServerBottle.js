@@ -1,12 +1,9 @@
-const Bottle = require('bottlejs');
+function configure(bottle) {
+    bottle.register(require('./Server'));
+    bottle.register(require('./ServerConfig'));
+    bottle.register(require('./RouteProvider'));
+    bottle.register(require('./MiddlewareProvider'));
+    bottle.register(require('./middleware/StaticFilesMiddleware'));
+}
 
-Bottle.config.strict = true;
-const bottle = new Bottle();
-
-bottle.register(require('./Server'));
-bottle.register(require('./ServerConfig'));
-bottle.register(require('./RouteProvider'));
-bottle.register(require('./MiddlewareProvider'));
-bottle.register(require('./middleware/StaticFilesMiddleware'));
-
-module.exports = bottle;
+module.exports.configure = configure;

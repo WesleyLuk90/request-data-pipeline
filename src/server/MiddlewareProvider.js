@@ -1,16 +1,25 @@
 class MiddlewareProvider {
-    constructor(staticFilesMiddleware) {
-        this.middleware = [
-            staticFilesMiddleware,
-        ];
+    constructor(middleware) {
+        this.middleware = middleware;
     }
 
     load(app) {
-        this.middleware.forEach((middleware) => middleware.load(app));
+        this.getMiddleware().forEach(middleware => middleware.load(app));
+    }
+
+    getMiddleware() {
+        return this.middleware;
     }
 }
 
-MiddlewareProvider.$name = 'middlewareProvider';
-MiddlewareProvider.$inject = ['staticFilesMiddleware'];
+function MiddlewareProviderFactory(container) {
+    return new MiddlewareProvider([
+        container.staticFilesMiddleware,
+    ]);
+}
 
-module.exports = MiddlewareProvider;
+MiddlewareProviderFactory.$name = 'middlewareProvider';
+MiddlewareProviderFactory.$type = 'factory';
+
+module.exports = MiddlewareProviderFactory;
+module.exports.MiddlewareProvider = MiddlewareProvider;
