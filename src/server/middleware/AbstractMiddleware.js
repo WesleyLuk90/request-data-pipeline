@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
+
 class AbstractMiddleware {
     load(app) {
-        throw new Error("Not implemented");
+        throw new Error('Not implemented');
     }
 }
 

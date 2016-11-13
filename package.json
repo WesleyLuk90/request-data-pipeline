@@ -5,7 +5,11 @@
     "scripts": {
         "dev-start": "nodemon --use_strict",
         "dev-test": "nodemon --use_strict node_modules/jasmine/bin/jasmine.js",
-        "test": "node --use_strict node_modules/jasmine/bin/jasmine.js"
+        "dev-build": "webpack --progress --watch",
+        "start": "node --use_strict",
+        "test": "node --use_strict node_modules/jasmine/bin/jasmine.js",
+        "build": "webpack",
+        "lint": "eslint src spec"
     },
     "repository": {
         "url": "https://github.com/WesleyLuk90/request-data-pipeline.git",
@@ -16,19 +20,29 @@
     "devDependencies": {
         "babel-core": "^6.18.2",
         "babel-loader": "^6.2.7",
+        "babel-preset-es2015": "^6.18.0",
+        "babel-preset-react": "^6.16.0",
+        "css-loader": "^0.25.0",
         "eslint": "^3.10.0",
         "eslint-config-airbnb": "^13.0.0",
         "eslint-plugin-import": "^2.2.0",
+        "eslint-plugin-jsx-a11y": "2.2.3",
         "eslint-plugin-react": "^6.6.0",
-        "nodemon": "^1.11.0"
+        "extract-text-webpack-plugin": "^1.0.1",
+        "file-loader": "^0.9.0",
+        "node-sass": "^3.11.3",
+        "nodemon": "^1.11.0",
+        "sass-loader": "^4.0.2",
+        "style-loader": "^0.13.1",
+        "url-loader": "^0.5.7",
+        "jasmine": "^2.5.2",
+        "webpack-livereload-plugin": "^0.9.0",
+        "webpack": "^1.13.3"
     },
     "dependencies": {
         "bootstrap-sass": "^3.3.7",
         "bottlejs": "^1.5.0",
-        "eslint-plugin-jsx-a11y": "2.2.3",
         "express": "^4.14.0",
-        "jasmine": "^2.5.2",
-        "lodash": "^4.16.6",
-        "webpack-livereload-plugin": "^0.9.0"
+        "lodash": "^4.16.6"
     }
 }
