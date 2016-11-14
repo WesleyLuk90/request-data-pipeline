@@ -1,5 +1,4 @@
-{
-    "env": {
-        "jasmine": true
-    }
-}
+env:
+    jasmine: true
+rules:
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]

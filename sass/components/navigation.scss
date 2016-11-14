@@ -1,4 +1,39 @@
 .navigation {
     background-color: $brand-primary;
     height: 50px;
+
+    &__links {
+        list-style: none;
+        height: 50px;
+        float: left;
+        margin: 0;
+        padding: 0 35px;
+    }
+
+    &__right {
+        float: right;
+    }
+}
+
+.navigation-links {
+    &__link-container {
+        display: inline-block;
+
+        & + & {
+            margin-left: 30px;
+        }
+    }
+
+    &__link {
+        line-height: 50px;
+        font-size: 1.4rem;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+
+        &:hover {
+            color: white;
+            text-decoration: none;
+        }
+    }
 }

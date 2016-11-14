@@ -4,8 +4,8 @@ const ReactDom = require('react-dom');
 const Page = require('./components/Page');
 
 class App {
-    start(container) {
-        ReactDom.render(<Page />, container);
+    start(module, element) {
+        ReactDom.render(<Page module={module} />, element);
     }
 }
 
