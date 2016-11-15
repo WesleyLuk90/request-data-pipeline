@@ -1,9 +1,14 @@
 class Router {
+    constructor(routeState) {
+        this.routeState = routeState;
+    }
+
     go(route) {
-        console.log(`Going to route ${route}`);
+        this.routeState.setCurrentState(route);
     }
 }
 
 Router.$name = 'router';
+Router.$inject = ['routeState'];
 
 module.exports = Router;

@@ -6,6 +6,7 @@
         "dev-start": "nodemon -e js,jsx --use_strict",
         "dev-test": "nodemon -e js,jsx --use_strict node_modules/jasmine/bin/jasmine.js",
         "dev-build": "webpack --progress --watch",
+        "dev": "concurrently \"npm run dev-start\" \"npm run dev-test\" \"npm run dev-build\"",
         "start": "node --use_strict",
         "test": "node --use_strict node_modules/jasmine/bin/jasmine.js",
         "build": "webpack",
