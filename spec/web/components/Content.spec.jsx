@@ -5,8 +5,18 @@ const Content = require('../../../src/web/components/Content');
 const Module = require('../../../src/web/Module');
 
 describe('<Content />', () => {
+    let module;
+    let router;
+
+    beforeEach(() => {
+        router = {};
+        module = new Module({
+            router,
+        });
+    });
+
     it('should contain a content container', () => {
-        const page = shallow(<Content module={new Module({})} />);
+        const page = shallow(<Content module={module} />);
         expect(page.find('.content')).toBePresent();
     });
 });

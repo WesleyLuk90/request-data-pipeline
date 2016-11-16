@@ -10,5 +10,7 @@ bottle.register(require('./App'));
 bottle.register(require('./routing/Router'));
 bottle.register(require('./routing/RouteState'));
 bottle.register(require('./routing/RouteList'));
+bottle.register(require('./routing/RouteLoader'));
+bottle.register(require('./Bootstrapper'));
 
 module.exports = bottle;

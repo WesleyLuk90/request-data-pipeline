@@ -6,5 +6,8 @@ describe('Bottle', () => {
         expect(bottle.container.router).toBeTruthy();
         expect(bottle.container.routeState).toBeTruthy();
         expect(bottle.container.routeList).toBeTruthy();
+        expect(bottle.container.module).toBeTruthy();
+        expect(bottle.container.routeLoader).toBeTruthy();
+        expect(bottle.container.bootstrapper).toBeTruthy();
     });
 });

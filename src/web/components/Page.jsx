@@ -8,7 +8,7 @@ class Page extends React.Component {
     render() {
         return (<div className="page">
             <Navigation module={this.props.module} />
-            <Content />
+            <Content module={this.props.module} />
         </div>);
     }
 }
