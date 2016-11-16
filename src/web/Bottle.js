@@ -4,6 +4,8 @@ Bottle.config.strict = true;
 
 const bottle = new Bottle();
 
+bottle.register(require('./Module').factory);
+
 bottle.register(require('./App'));
 bottle.register(require('./routing/Router'));
 bottle.register(require('./routing/RouteState'));

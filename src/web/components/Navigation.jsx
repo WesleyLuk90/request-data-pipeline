@@ -1,14 +1,21 @@
 const React = require('react');
 const Icon = require('../elements/Icon');
+const Module = require('../Module');
 
 class Navigation extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.router = props.module.get('router');
+    }
+
     onClick(e, route) {
         e.preventDefault();
         this.navigate(route);
     }
 
     navigate(route) {
-        this.props.module.router.go(route);
+        this.router.go(route);
     }
 
     render() {
@@ -41,7 +48,7 @@ class Navigation extends React.Component {
     }
 }
 Navigation.propTypes = {
-    module: React.PropTypes.object.isRequired,
+    module: React.PropTypes.instanceOf(Module).isRequired,
 };
 
 module.exports = Navigation;

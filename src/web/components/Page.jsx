@@ -1,5 +1,6 @@
 const React = require('react');
 
+const Module = require('../Module');
 const Navigation = require('./Navigation');
 const Content = require('./Content');
 
@@ -13,7 +14,7 @@ class Page extends React.Component {
 }
 
 Page.propTypes = {
-    module: React.PropTypes.object.isRequired,
+    module: React.PropTypes.instanceOf(Module).isRequired,
 };
 
 module.exports = Page;

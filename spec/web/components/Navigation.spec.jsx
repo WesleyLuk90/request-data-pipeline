@@ -3,10 +3,21 @@ const { shallow } = require('enzyme');
 
 const MockEvent = require('../MockEvent');
 const Navigation = require('../../../src/web/components/Navigation');
+const Module = require('../../../src/web/Module');
 
 describe('<Navigation />', () => {
+    let module;
+    let router;
+
+    beforeEach(() => {
+        router = {
+            go: jasmine.createSpy('router.go'),
+        };
+        module = new Module({ router });
+    });
+
     it('should contain links', () => {
-        const page = shallow(<Navigation module={{}} />);
+        const page = shallow(<Navigation module={module} />);
         const links = page.find('.navigation-links__link');
         expect(links.length).toBe(4);
         expect(links.at(0).text()).toMatch(/Data Sources/);
@@ -16,11 +27,7 @@ describe('<Navigation />', () => {
     });
 
     it('should navigate when clicking links', () => {
-        const router = {
-            go: jasmine.createSpy('router.go'),
-        };
-
-        const page = shallow(<Navigation module={{ router }} />);
+        const page = shallow(<Navigation module={module} />);
         const links = page.find('.navigation-links__link');
 
         links.at(0).simulate('click', MockEvent.create());

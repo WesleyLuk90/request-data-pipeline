@@ -5,7 +5,7 @@ require('font-awesome/css/font-awesome.css');
 const bottle = require('./Bottle');
 
 function main() {
-    bottle.container.app.start(bottle.container, document.querySelector('.app-container'));
+    bottle.container.app.start(document.querySelector('.app-container'));
 }
 
 function ready(fn) {
