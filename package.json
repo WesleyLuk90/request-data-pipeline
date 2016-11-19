@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
-        "dev-start": "nodemon -e js,jsx --use_strict",
+        "dev-start": "nodemon --config nodemon/server.json --use_strict",
         "dev-test": "nodemon -e js,jsx --use_strict node_modules/jasmine/bin/jasmine.js",
         "dev-build": "webpack --progress --watch",
         "dev": "concurrently --kill-others \"npm run dev-start\" \"npm run dev-test\" \"npm run dev-build\"",
