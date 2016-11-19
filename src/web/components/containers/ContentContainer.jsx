@@ -2,7 +2,7 @@ const React = require('react');
 
 class ContentContainer extends React.Component {
     render() {
-        return (<div className="content-container">
+        return (<div className="content-container container-fluid">
             {this.props.children}
         </div>);
     }

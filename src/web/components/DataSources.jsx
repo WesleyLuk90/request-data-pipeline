@@ -1,10 +1,13 @@
 const React = require('react');
 
 const Module = require('../Module');
+const ContentContainer = require('./containers/ContentContainer');
 
 class DataSources extends React.Component {
     render() {
-        return (<div>Hello</div>);
+        return (<ContentContainer>
+            Hello
+        </ContentContainer>);
     }
 }
 
