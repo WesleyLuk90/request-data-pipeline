@@ -15,13 +15,16 @@ class Button extends React.Component {
     }
 
     render() {
-        return (<button className={this.getClasses()}>{this.props.children}</button>);
+        return (<button className={this.getClasses()} onClick={this.props.onClick}>
+            {this.props.children}
+        </button>);
     }
 }
 
 Button.propTypes = {
     children: React.PropTypes.node,
     type: React.PropTypes.string,
+    onClick: React.PropTypes.func,
 };
 
 module.exports = Button;
