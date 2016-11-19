@@ -10,5 +10,6 @@ describe('Bottle', () => {
         expect(bottle.container.routeLoader).toBeTruthy();
         expect(bottle.container.bootstrapper).toBeTruthy();
         expect(bottle.container.createDataSourceStore).toBeTruthy();
+        expect(bottle.container.dataSourceService).toBeTruthy();
     });
 });

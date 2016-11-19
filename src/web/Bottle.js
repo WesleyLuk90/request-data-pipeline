@@ -13,5 +13,6 @@ bottle.register(require('./routing/RouteList'));
 bottle.register(require('./routing/RouteLoader'));
 bottle.register(require('./Bootstrapper'));
 bottle.register(require('./stores/CreateDataSourceStore'));
+bottle.register(require('./services/DataSourceService'));
 
 module.exports = bottle;

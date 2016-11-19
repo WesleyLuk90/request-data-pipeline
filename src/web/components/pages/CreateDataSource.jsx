@@ -3,6 +3,7 @@ const React = require('react');
 const ContentContainer = require('../containers/ContentContainer');
 const FieldList = require('../forms/FieldList');
 const TextInput = require('../forms/TextInput');
+const Button = require('../../elements/Button');
 const Module = require('../../Module');
 
 class CreateDataSource extends React.Component {
@@ -10,6 +11,7 @@ class CreateDataSource extends React.Component {
         super(props);
 
         this.store = this.props.module.get('createDataSourceStore');
+        this.service = this.props.module.get('dataSourceService');
 
         this.state = {
             dataSource: this.store.getDataSource(),
@@ -26,6 +28,10 @@ class CreateDataSource extends React.Component {
         this.subscriptions.forEach(s => s.dispose());
     }
 
+    onClickCreate() {
+        this.service.create(this.store.getDataSource());
+    }
+
     setDataSource(dataSource) {
         this.setState({ dataSource });
         this.forceUpdate();
@@ -38,12 +44,12 @@ class CreateDataSource extends React.Component {
         };
     }
 
-
     render() {
         return (<ContentContainer>
             <FieldList>
                 <TextInput label="URL" onChange={this.createOnChange('url')} value={this.state.dataSource.url} />
             </FieldList>
+            <Button type="create" onClick={e => this.onClickCreate(e)}>Create</Button>
         </ContentContainer>);
     }
 }
