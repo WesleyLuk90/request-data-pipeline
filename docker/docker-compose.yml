@@ -4,4 +4,9 @@ services:
     db:
         image: mongo:3.0
         ports:
-            - "27017:51001"
+            - "51001:27017"
+        volumes:
+          - data:/data/db
+volumes:
+    data:
+        driver: local
