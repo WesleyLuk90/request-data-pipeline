@@ -1,11 +1,16 @@
-const ObjectId = require('mongodb').ObjectId;
 /* eslint-disable no-underscore-dangle */
+
+const ObjectId = require('mongodb').ObjectId;
+
+const RestUtils = require('../shared/RestUtils');
+const Check = require('../util/Check');
+const NotFoundError = require('./NotFoundError');
 
 class StorageService {
     constructor(database, tableName, modelClass) {
-        this.database = database;
-        this.tableName = tableName;
-        this.modelClass = modelClass;
+        this.database = Check.notNull(database);
+        this.tableName = Check.notNull(tableName);
+        this.modelClass = Check.notNull(modelClass);
     }
 
     getDatabase() {
@@ -54,7 +59,14 @@ class StorageService {
         if (typeof id === 'string') {
             return ObjectId.createFromHexString(id);
         }
-        throw new Error(`Invalid object id ${id}`);
+        throw new Error(`Invalid object id ${id} of type ${id.constructor.name}`);
+    }
+
+    cleanData(data) {
+        const cleanedData = data;
+        cleanedData.id = cleanedData._id.toHexString();
+        delete cleanedData._id;
+        return cleanedData;
     }
 
     create(instance) {
@@ -75,15 +87,40 @@ class StorageService {
     update(instance) {
         this.validateInstance(instance);
         this.validateId(instance);
+
+        const data = instance.toJsonObject();
+        const id = data.id;
+        delete data.id;
+        data._id = this.wrapId(id);
+
+        return this.getCollection()
+            .then(collection => collection.updateOne({ _id: data._id }, data))
+            .then(() => instance);
     }
 
     get(id) {
+        const wrappedId = this.wrapId(id);
 
+        return this.getCollection()
+            .then(collection => collection.findOne({ _id: wrappedId }))
+            .then((data) => {
+                if (!data) {
+                    throw new NotFoundError(`Failed to find instance with id '${wrappedId.toHexString()}'`);
+                }
+                const Klass = this.modelClass;
+                const cleanedData = this.cleanData(data);
+                return RestUtils.load(cleanedData, new Klass());
+            });
     }
 
     delete(instance) {
         this.validateInstance(instance);
         this.validateId(instance);
+
+        const wrappedId = this.wrapId(instance.id);
+
+        return this.getCollection()
+            .then(collection => collection.deleteOne({ _id: wrappedId }));
     }
 }
 

@@ -1,6 +1,7 @@
 const StorageService = require('../../src/db/StorageService');
 const Database = require('../../src/db/Database');
 const DbConfig = require('../../src/db/DbConfig');
+const NotFoundError = require('../../src/db/NotFoundError');
 const BaseRestClass = require('../../src/shared/BaseRestClass');
 
 describe('StorageService', () => {
@@ -85,7 +86,7 @@ describe('StorageService', () => {
                 .then(done);
         });
 
-        it('should create instance', (done) => {
+        it('should create instances', (done) => {
             const myClass = new RestTestClass();
             myClass.value = 10;
             storageService.create(myClass)
@@ -96,6 +97,56 @@ describe('StorageService', () => {
                     expect(instance.id.length).toBe(24);
                     return assertDatabaseInstance(instance.id, { _id: instance.id, value: 10 });
                 })
+                .catch(fail)
+                .then(done);
+        });
+
+        it('should update instances', (done) => {
+            storageService.create(new RestTestClass())
+                .then((instance) => {
+                    const modifiedInstance = instance;
+                    modifiedInstance.value = 20;
+                    return storageService.update(modifiedInstance)
+                        .then((updatedInstance) => {
+                            expect(updatedInstance).toBe(modifiedInstance);
+                            return assertDatabaseInstance(updatedInstance.id, {
+                                _id: updatedInstance.id,
+                                value: 20,
+                            });
+                        });
+                })
+                .catch(fail)
+                .then(done);
+        });
+
+        it('should get instance', (done) => {
+            storageService.create(new RestTestClass())
+                .then(instance =>
+                    storageService.get(instance.id)
+                    .then((foundInstance) => {
+                        expect(foundInstance).toEqual(instance);
+                        expect(typeof foundInstance.id).toBe('string');
+                    }))
+                .catch(fail)
+                .then(done);
+        });
+
+        it('should throw an error if it cant get an instance', (done) => {
+            storageService.get('aaaaaaaaaaaaaaaaaaaaaaaa')
+                .then(fail)
+                .catch((e) => {
+                    expect(e.message).toBe('Failed to find instance with id \'aaaaaaaaaaaaaaaaaaaaaaaa\'');
+                    expect(e instanceof NotFoundError).toBe(true);
+                    expect(e instanceof Error).toBe(true);
+                }).then(done);
+        });
+
+        it('should delete data', (done) => {
+            storageService.create(new RestTestClass())
+                .then(instance => storageService.delete(instance)
+                    .then(() => storageService.get(instance.id))
+                    .then(fail)
+                    .catch(error => expect(error instanceof NotFoundError).toBe(true)))
                 .catch(fail)
                 .then(done);
         });
