@@ -1,10 +1,13 @@
 const React = require('react');
-const { shallow } = require('enzyme');
+const {
+    shallow
+} = require('enzyme');
 
 const CreateDataSource = require('../../../../src/web/components/pages/CreateDataSource');
 const CreateDataSourceStore = require('../../../../src/web/stores/CreateDataSourceStore');
 const RestDataSource = require('../../../../src/shared/RestDataSource');
 const DataSourceService = require('../../../../src/web/services/DataSourceService');
+const RestServiceFactory = require('../../../../src/web/services/RestServiceFactory');
 const Module = require('../../../../src/web/Module');
 const Button = require('../../../../src/web/elements/Button');
 
@@ -13,7 +16,7 @@ describe('CreateDataSource', () => {
     beforeEach(() => {
         module = new Module({
             createDataSourceStore: new CreateDataSourceStore(),
-            dataSourceService: new DataSourceService(),
+            dataSourceService: new DataSourceService(new RestServiceFactory()),
         });
     });
 

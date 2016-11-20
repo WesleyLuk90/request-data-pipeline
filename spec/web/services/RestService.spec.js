@@ -38,8 +38,9 @@ describe('RestService', () => {
 
             const createCall = service.create(new RestDataSource());
 
-            createCall.then((res) => {
-                expect(res.body.data_source).toEqual(new RestDataSource().toJsonObject());
+            createCall.then((dataSource) => {
+                expect(dataSource instanceof RestDataSource).toBe(true);
+                expect(dataSource).toEqual(new RestDataSource());
             }).then(done);
         });
     });
