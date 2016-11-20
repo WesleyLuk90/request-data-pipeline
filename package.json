@@ -54,6 +54,8 @@
         "lodash": "^4.16.6",
         "react": "^15.3.2",
         "react-dom": "^15.3.2",
-        "rx": "^4.1.0"
+        "rx": "^4.1.0",
+        "superagent": "^3.0.0",
+        "superagent-mocker": "^0.5.2"
     }
 }

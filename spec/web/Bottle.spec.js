@@ -11,5 +11,6 @@ describe('Bottle', () => {
         expect(bottle.container.bootstrapper).toBeTruthy();
         expect(bottle.container.createDataSourceStore).toBeTruthy();
         expect(bottle.container.dataSourceService).toBeTruthy();
+        expect(bottle.container.restServiceFactory).toBeTruthy();
     });
 });
