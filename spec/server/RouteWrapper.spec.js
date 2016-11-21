@@ -80,7 +80,8 @@ describe('RouteWrapper', () => {
         route(null, res)
             .then(() => {
                 expect(res.json).toHaveBeenCalled();
-                expect(res.json.calls.first().args[0]).toEqual({ error: processingError });
+                expect(res.json.calls.first().args[0])
+                    .toEqual(Response.error(processingError).toJson());
             })
             .catch(fail)
             .then(done);

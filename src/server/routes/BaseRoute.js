@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 class BaseRoute {
-    load(app) {
+    load(routeWrapper) {
         throw new Error('Not Implemented');
     }
 }

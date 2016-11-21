@@ -21,5 +21,6 @@ describe('MiddlewareProvider', () => {
         const fluentMiddleware = _(provider.getMiddleware());
 
         expect(fluentMiddleware.includes(container.staticFilesMiddleware)).toBe(true);
+        expect(fluentMiddleware.includes(container.bodyParserMiddleware)).toBe(true);
     });
 });

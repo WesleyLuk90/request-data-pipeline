@@ -24,7 +24,7 @@ class RouteWrapper {
     }
 
     errorHandler(error, res) {
-        res.json({ error });
+        res.json(Response.error(error).toJson());
     }
 
     checkResponse(response) {

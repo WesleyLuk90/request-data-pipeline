@@ -21,6 +21,6 @@ class StorageServiceFactory {
 }
 
 StorageServiceFactory.$name = 'storageServiceFactory';
-StorageServiceFactory.$inject = [];
+StorageServiceFactory.$inject = ['database'];
 
 module.exports = StorageServiceFactory;

@@ -1,12 +1,8 @@
 {
     "verbose": true,
     "ignore": ["src/web"],
-    "execMap": {
-        "rb": "ruby",
-        "pde": "processing --sketch={{pwd}} --run"
-    },
     "watch": [
-        "src",
+        "src"
     ],
-    "ext": "js jsx"
+    "ext": "js"
 }

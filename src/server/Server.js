@@ -11,6 +11,7 @@ class Server {
 
     start() {
         this.middlewareProvider.load(this.app);
+        this.routeProvider.load(this.app);
 
         this.app.listen(this.serverConfig.getPort(), () => {
             console.log(`Server listening on port ${this.serverConfig.getPort()}`);

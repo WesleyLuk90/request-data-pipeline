@@ -15,6 +15,7 @@ class MiddlewareProvider {
 function MiddlewareProviderFactory(container) {
     return new MiddlewareProvider([
         container.staticFilesMiddleware,
+        container.bodyParserMiddleware,
     ]);
 }
 

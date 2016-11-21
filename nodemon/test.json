@@ -1,0 +1,8 @@
+{
+    "verbose": true,
+    "watch": [
+        "src",
+        "spec"
+    ],
+    "ext": "js jsx"
+}
