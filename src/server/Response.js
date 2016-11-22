@@ -1,7 +1,9 @@
 const _ = require('lodash');
-const pluralize = require('pluralize')
+const pluralize = require('pluralize');
 
 const Check = require('../util/Check');
+
+/* eslint-disable no-unused-vars */
 
 class Response {
     static success(data) {
