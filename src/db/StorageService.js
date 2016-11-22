@@ -62,11 +62,12 @@ class StorageService {
         throw new Error(`Invalid object id ${id} of type ${id.constructor.name}`);
     }
 
-    cleanData(data) {
+    createClass(data) {
+        const Klass = this.modelClass;
         const cleanedData = data;
         cleanedData.id = cleanedData._id.toHexString();
         delete cleanedData._id;
-        return cleanedData;
+        return RestUtils.load(cleanedData, new Klass());
     }
 
     create(instance) {
@@ -107,9 +108,7 @@ class StorageService {
                 if (!data) {
                     throw new NotFoundError(`Failed to find instance with id '${wrappedId.toHexString()}'`);
                 }
-                const Klass = this.modelClass;
-                const cleanedData = this.cleanData(data);
-                return RestUtils.load(cleanedData, new Klass());
+                return this.createClass(data);
             });
     }
 
@@ -121,6 +120,12 @@ class StorageService {
 
         return this.getCollection()
             .then(collection => collection.deleteOne({ _id: wrappedId }));
+    }
+
+    list(filter) {
+        return this.getCollection()
+            .then(collection => collection.find(filter).toArray())
+            .then(results => results.map(data => this.createClass(data)));
     }
 }
 

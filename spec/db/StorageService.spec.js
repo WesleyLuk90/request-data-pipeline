@@ -3,6 +3,8 @@ const Database = require('../../src/db/Database');
 const DbConfig = require('../../src/db/DbConfig');
 const NotFoundError = require('../../src/db/NotFoundError');
 const BaseRestClass = require('../../src/shared/BaseRestClass');
+const RestUtils = require('../../src/shared/RestUtils');
+const Rx = require('rx');
 
 describe('StorageService', () => {
     class RestTestClass extends BaseRestClass {}
@@ -149,6 +151,44 @@ describe('StorageService', () => {
                     .catch(error => expect(error instanceof NotFoundError).toBe(true)))
                 .catch(fail)
                 .then(done);
+        });
+
+        describe('with existing data', () => {
+            let existingData;
+
+            beforeEach((done) => {
+                Rx.Observable.range(0, 20)
+                    .flatMapWithMaxConcurrent(1, a =>
+                        Rx.Observable.defer(() =>
+                            storageService.create(
+                                RestUtils.load({ value: a }, new RestTestClass()))))
+                    .toArray()
+                    .do((results) => {
+                        existingData = results;
+                    })
+                    .doOnError(fail)
+                    .subscribeOnCompleted(done);
+            });
+
+            it('should list items in the right format', (done) => {
+                storageService.list()
+                    .then((results) => {
+                        results.forEach(result => expect(typeof result.id).toBe('string'));
+                        expect(results).toJsonArrayEquals(existingData);
+                    })
+                    .catch(fail)
+                    .then(done);
+            });
+
+            it('should find items by filter', (done) => {
+                storageService.list({ value: existingData[3].value })
+                    .then((results) => {
+                        expect(results.length).toBe(1);
+                        expect(results[0]).toJsonEquals(existingData[3]);
+                    })
+                    .catch(fail)
+                    .then(done);
+            });
         });
     });
 });
