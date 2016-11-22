@@ -17,6 +17,10 @@ class UrlFormatter {
     static getUpdateUrl(restClass) {
         return `/api/${UrlFormatter.getUrlChunk(restClass)}/update`;
     }
+
+    static getListUrl(restClass) {
+        return `/api/${UrlFormatter.getUrlChunk(restClass)}/list`;
+    }
 }
 
 module.exports = UrlFormatter;

@@ -22,14 +22,13 @@ describe('CrudRoute', () => {
         route.load(routeWrapper);
 
         const definedRoutes = routeWrapper.post.calls.all().map(call => call.args[0]);
-        definedRoutes.sort();
         const expectedRoutes = [
             '/api/my-class/create',
             '/api/my-class/update',
             '/api/my-class/delete',
+            '/api/my-class/list',
         ];
-        expectedRoutes.sort();
-        expect(definedRoutes).toEqual(expectedRoutes);
+        expect(definedRoutes).toEqualInAnyOrder(expectedRoutes);
     });
 
     describe('with storage', () => {
@@ -40,6 +39,7 @@ describe('CrudRoute', () => {
                 create: jasmine.createSpy('create').and.returnValue(Promise.resolve()),
                 update: jasmine.createSpy('update').and.returnValue(Promise.resolve()),
                 delete: jasmine.createSpy('delete').and.returnValue(Promise.resolve()),
+                list: jasmine.createSpy('list').and.returnValue(Promise.resolve([new RestMyClass(), new RestMyClass()])),
             };
             const factory = new StorageServiceFactory({});
             spyOn(factory, 'create').and.returnValue(storage);
@@ -68,6 +68,16 @@ describe('CrudRoute', () => {
             route.delete({ body: {} })
                 .then((res) => {
                     expect(res.toJson()).toEqual({ success: true });
+                })
+                .catch(fail)
+                .then(done);
+        });
+
+        it('should handle list requests', (done) => {
+            route.list({ body: { filters: { my: 'filters' } } })
+                .then((res) => {
+                    expect(res.toJson()).toEqual({ success: true, my_classes: [{}, {}] });
+                    expect(storage.list).toHaveBeenCalledWith({ my: 'filters' });
                 })
                 .catch(fail)
                 .then(done);

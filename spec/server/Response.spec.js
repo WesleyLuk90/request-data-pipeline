@@ -21,6 +21,12 @@ describe('Response', () => {
             .toEqual({ success: true, some_class: {} });
     });
 
+    it('should have a success with model response', () => {
+        class RestSomeClass extends BaseRestClass {}
+        expect(Response.successWithModels([new RestSomeClass(), new RestSomeClass()], RestSomeClass).toJson())
+            .toEqual({ success: true, some_classes: [{}, {}] });
+    });
+
     it('should have a err response', () => {
         const error = new Error();
         expect(Response.error(error).toJson()).toEqual({

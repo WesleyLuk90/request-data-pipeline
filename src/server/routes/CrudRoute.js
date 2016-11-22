@@ -24,6 +24,9 @@ class CrudRoute extends BaseRoute {
         routeWrapper.post(
             UrlFormatter.getUpdateUrl(this.restClass),
             (req, res) => this.update(req, res));
+        routeWrapper.post(
+            UrlFormatter.getListUrl(this.restClass),
+            (req, res) => this.list(req, res));
     }
 
     create(req) {
@@ -42,6 +45,12 @@ class CrudRoute extends BaseRoute {
         const instance = this.loadInstance(req.body);
         return this.storage.delete(instance)
             .then(() => Response.success());
+    }
+
+    list(req) {
+        const filters = req.body.filters;
+        return this.storage.list(filters)
+            .then(values => Response.successWithModels(values, this.restClass));
     }
 
     loadInstance(data) {

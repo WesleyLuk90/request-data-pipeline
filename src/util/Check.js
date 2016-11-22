@@ -23,6 +23,13 @@ class Check {
         }
         return subClass;
     }
+
+    static isArray(array) {
+        if (!Array.isArray(array)) {
+            throw new Error('Expected an array');
+        }
+        return array;
+    }
 }
 
 module.exports = Check;

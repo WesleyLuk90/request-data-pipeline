@@ -11,5 +11,6 @@ describe('UrlFormatter', () => {
         expect(UrlFormatter.getCreateUrl(RestSomeClass)).toBe('/api/some-class/create');
         expect(UrlFormatter.getDeleteUrl(RestSomeClass)).toBe('/api/some-class/delete');
         expect(UrlFormatter.getUpdateUrl(RestSomeClass)).toBe('/api/some-class/update');
+        expect(UrlFormatter.getListUrl(RestSomeClass)).toBe('/api/some-class/list');
     });
 });

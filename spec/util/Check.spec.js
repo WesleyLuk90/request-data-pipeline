@@ -36,4 +36,11 @@ describe('Check', () => {
         expect(Check.subClassOf(SomeClass, SomeClass)).toBe(SomeClass);
         expect(Check.subClassOf(SubSomeClass, SomeClass)).toBe(SubSomeClass);
     });
+
+    it('should check for arrays', () => {
+        expect(() => Check.isArray(null)).toThrowError('Expected an array');
+        expect(() => Check.isArray({})).toThrowError('Expected an array');
+        expect(() => Check.isArray('array')).toThrowError('Expected an array');
+        expect(Check.isArray([])).toEqual([]);
+    });
 });
