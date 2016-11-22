@@ -4,6 +4,7 @@ const Module = require('../Module');
 const ContentContainer = require('./containers/ContentContainer');
 const Icon = require('../elements/Icon');
 const Button = require('../elements/Button');
+const DataSourceList = require('../data-sources/DataSourceList');
 
 class DataSources extends React.Component {
     constructor(props) {
@@ -15,6 +16,7 @@ class DataSources extends React.Component {
     }
     render() {
         return (<ContentContainer>
+            <DataSourceList module={this.props.module} />
             <Button type="create" onClick={() => this.goToCreate()}>
                 <Icon icon="plus" /> New Data Source
             </Button>

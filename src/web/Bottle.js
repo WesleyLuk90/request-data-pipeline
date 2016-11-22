@@ -15,5 +15,7 @@ bottle.register(require('./Bootstrapper'));
 bottle.register(require('./stores/CreateDataSourceStore'));
 bottle.register(require('./services/DataSourceService'));
 bottle.register(require('./services/RestServiceFactory'));
+bottle.register(require('./data-sources/DataSourceListStore'));
+bottle.register(require('./data-sources/DataSourceListLoader'));
 
 module.exports = bottle;
