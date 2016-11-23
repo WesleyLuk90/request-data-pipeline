@@ -7,5 +7,6 @@ describe('DataSourceListItem', () => {
     it('should display', () => {
         const component = shallow(<DataSourceListItem />);
         expect(component).toBeDefined();
+        expect(component.find('.data-source-list-item')).toBeDefined();
     });
 });

@@ -2,8 +2,9 @@ const React = require('react');
 
 class DataSourceListItem extends React.Component {
     render() {
-        return (<div>
-        </div>);
+        return (<li className="data-source-list-item">
+            I'm  a data source
+        </li>);
     }
 }
 

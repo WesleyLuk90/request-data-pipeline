@@ -34,4 +34,13 @@ describe('DataSourceList', () => {
         component.instance().componentDidMount();
         expect(module.get('dataSourceListLoader').load).toHaveBeenCalled();
     });
+
+    it('should dispose of subscriptions', () => {
+        const component = shallow(<DataSourceList module={module} />);
+        component.instance().componentDidMount();
+        expect(component.instance().subscriptions.length).toBe(1);
+        component.instance().componentWillUnmount();
+
+        expect(component.instance().subscriptions).toEqual([]);
+    });
 });

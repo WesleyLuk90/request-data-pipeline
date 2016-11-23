@@ -23,7 +23,8 @@ class DataSourceList extends React.Component {
     }
 
     componentWillUnmount() {
-        this.subscriptions.forEach(s => s.dipose());
+        this.subscriptions.forEach(s => s.dispose());
+        this.subscriptions = [];
     }
 
     updateDataSources(dataSources) {
