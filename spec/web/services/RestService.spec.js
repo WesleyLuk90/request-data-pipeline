@@ -12,8 +12,7 @@ describe('RestService', () => {
     });
 
     it('should be creatable with an endpoint and class', () => {
-        const service = new RestService('/api/some-endpoint', RestDataSource);
-        expect(service.getBaseEndpoint()).toBe('/api/some-endpoint');
+        const service = new RestService(RestDataSource);
         expect(service.getClass()).toBe(RestDataSource);
     });
 
@@ -22,7 +21,7 @@ describe('RestService', () => {
         let mock;
         beforeEach(() => {
             mock = mocker(superagent);
-            service = new RestService('/api/data-source', RestDataSource);
+            service = new RestService(RestDataSource);
             mock.clearRoutes();
         });
         it('should allow creating with get', (done) => {
@@ -38,10 +37,37 @@ describe('RestService', () => {
 
             const createCall = service.create(new RestDataSource());
 
-            createCall.then((dataSource) => {
-                expect(dataSource instanceof RestDataSource).toBe(true);
-                expect(dataSource).toEqual(new RestDataSource());
-            }).then(done);
+            createCall
+                .then((dataSource) => {
+                    expect(dataSource instanceof RestDataSource).toBe(true);
+                    expect(dataSource).toEqual(new RestDataSource());
+                })
+                .catch(fail)
+                .then(done);
+        });
+        it('should listing with list', (done) => {
+            mock.post('/api/data-source/list', (req) => {
+                expect(req.url).toBe('/api/data-source/list');
+                return {
+                    body: {
+                        data_sources: [
+                            new RestDataSource().toJsonObject(),
+                            new RestDataSource().toJsonObject(),
+                        ],
+                    },
+                };
+            });
+
+            const createCall = service.list();
+
+            createCall
+                .then((dataSource) => {
+                    expect(Array.isArray(dataSource)).toBe(true);
+                    expect(dataSource[0] instanceof RestDataSource).toBe(true);
+                    expect(dataSource[1] instanceof RestDataSource).toBe(true);
+                })
+                .catch(fail)
+                .then(done);
         });
     });
 });

@@ -19,7 +19,6 @@ describe('RestServiceFactory', () => {
     it('should create a RestService', () => {
         const restService = factory.create(RestDataSource);
         expect(restService instanceof RestService).toBe(true);
-        expect(restService.getBaseEndpoint()).toBe('/api/data-source');
         expect(restService.getClass()).toBe(RestDataSource);
     });
 });

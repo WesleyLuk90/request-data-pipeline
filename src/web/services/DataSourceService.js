@@ -6,8 +6,11 @@ class DataSourceService {
     }
 
     create(dataSource) {
-        return this.service.create(dataSource)
-            .catch(e => console.log(e)).then(e => console.log(e));
+        return this.service.create(dataSource);
+    }
+
+    list() {
+        return this.service.list();
     }
 }
 

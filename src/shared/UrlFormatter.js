@@ -1,25 +1,42 @@
 const _ = require('lodash');
+const pluralize = require('pluralize');
 
 class UrlFormatter {
 
+    static getClassBaseName(restClass) {
+        return restClass.name.replace(/^Rest/, '');
+    }
+
     static getUrlChunk(restClass) {
-        return _.kebabCase(restClass.name.replace(/^Rest/, ''));
+        return _.kebabCase(UrlFormatter.getClassBaseName(restClass));
+    }
+
+    static getBaseEndpoint(restClass) {
+        return `/api/${UrlFormatter.getUrlChunk(restClass)}`;
     }
 
     static getCreateUrl(restClass) {
-        return `/api/${UrlFormatter.getUrlChunk(restClass)}/create`;
+        return `${UrlFormatter.getBaseEndpoint(restClass)}/create`;
     }
 
     static getDeleteUrl(restClass) {
-        return `/api/${UrlFormatter.getUrlChunk(restClass)}/delete`;
+        return `${UrlFormatter.getBaseEndpoint(restClass)}/delete`;
     }
 
     static getUpdateUrl(restClass) {
-        return `/api/${UrlFormatter.getUrlChunk(restClass)}/update`;
+        return `${UrlFormatter.getBaseEndpoint(restClass)}/update`;
     }
 
     static getListUrl(restClass) {
-        return `/api/${UrlFormatter.getUrlChunk(restClass)}/list`;
+        return `${UrlFormatter.getBaseEndpoint(restClass)}/list`;
+    }
+
+    static getModelKey(restClass) {
+        return _.snakeCase(UrlFormatter.getClassBaseName(restClass));
+    }
+
+    static getModelsKey(restClass) {
+        return _.snakeCase(pluralize(UrlFormatter.getClassBaseName(restClass)));
     }
 }
 

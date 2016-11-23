@@ -2,23 +2,11 @@ const superagent = require('superagent');
 const _ = require('lodash');
 
 const RestUtils = require('../../shared/RestUtils');
+const UrlFormatter = require('../../shared/UrlFormatter');
 
 class RestService {
-    constructor(baseEndpoint, restClass) {
-        this.baseEndpoint = baseEndpoint;
+    constructor(restClass) {
         this.restClass = restClass;
-    }
-
-    getBaseEndpoint() {
-        return this.baseEndpoint;
-    }
-
-    createEndpoint(suffix) {
-        return `${this.getBaseEndpoint()}${suffix}`;
-    }
-
-    getResponseKey() {
-        return _.snakeCase(this.restClass.name.replace(/^Rest/, ''));
     }
 
     getClass() {
@@ -26,18 +14,40 @@ class RestService {
     }
 
     create(restObject) {
-        return this.buildResponse(superagent
-            .post(this.createEndpoint('/create'))
-            .send(restObject.toJsonObject()));
+        return superagent
+            .post(UrlFormatter.getCreateUrl(this.restClass))
+            .send(restObject.toJsonObject())
+            .then(res => this.responseToModel(res));
     }
 
-    buildResponse(request) {
-        return request.then((response) => {
-            const key = this.getResponseKey();
-            const classData = response.body[key];
-            const RestClass = this.restClass;
-            return RestUtils.load(classData, new RestClass());
-        });
+    list() {
+        return superagent
+            .post(UrlFormatter.getListUrl(this.restClass))
+            .send({})
+            .then(res => this.responseToModels(res));
+    }
+
+    responseToModel(response) {
+        return this.buildModel(this.getResponseModelData(response));
+    }
+
+    getResponseModelData(response) {
+        const key = UrlFormatter.getModelKey(this.restClass);
+        return response.body[key];
+    }
+
+    getResponseModelsData(response) {
+        const key = UrlFormatter.getModelsKey(this.restClass);
+        return response.body[key];
+    }
+
+    buildModel(data) {
+        const RestClass = this.restClass;
+        return RestUtils.load(data, new RestClass());
+    }
+
+    responseToModels(response) {
+        return this.getResponseModelsData(response).map(d => this.buildModel(d));
     }
 }
 

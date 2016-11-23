@@ -1,7 +1,5 @@
-const _ = require('lodash');
-const pluralize = require('pluralize');
-
 const Check = require('../util/Check');
+const UrlFormatter = require('../shared/UrlFormatter');
 
 /* eslint-disable no-unused-vars */
 
@@ -41,15 +39,15 @@ class Response {
     }
 
     setModelsData(models, modelClass) {
-        this.data[this.getModelsKey(modelClass)] = models.map(m => m.toJsonObject());
+        this.data[this.getModelsClassKey(modelClass)] = models.map(m => m.toJsonObject());
     }
 
     getModelKey(model) {
-        return _.snakeCase(model.constructor.name.replace(/^Rest/, ''));
+        return UrlFormatter.getModelKey(model.constructor);
     }
 
-    getModelsKey(modelClass) {
-        return _.snakeCase(pluralize(modelClass.name.replace(/^Rest/, '')));
+    getModelsClassKey(modelClass) {
+        return UrlFormatter.getModelsKey(modelClass);
     }
 
     toJson() {
