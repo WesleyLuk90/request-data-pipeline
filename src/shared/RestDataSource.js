@@ -4,6 +4,7 @@ class RestDataSource extends BaseRestClass {
     constructor() {
         super();
         this.url = '';
+        this.name = '';
     }
 
     getUrl() {

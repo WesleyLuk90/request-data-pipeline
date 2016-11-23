@@ -7,8 +7,12 @@ class CreateDataSourceStore {
         this.stream = new Rx.BehaviorSubject(new RestDataSource());
     }
 
-    getDataSource() {
+    get() {
         return this.stream.getValue();
+    }
+
+    reset() {
+        this.update(new RestDataSource());
     }
 
     getStream() {

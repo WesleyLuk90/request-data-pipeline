@@ -17,5 +17,6 @@ bottle.register(require('./services/DataSourceService'));
 bottle.register(require('./services/RestServiceFactory'));
 bottle.register(require('./data-sources/DataSourceListStore'));
 bottle.register(require('./data-sources/DataSourceListLoader'));
+bottle.register(require('./data-sources/CreateDataSourceService'));
 
 module.exports = bottle;
