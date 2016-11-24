@@ -1,0 +1,13 @@
+@mixin default-padding {
+    padding: 15px 20px;
+}
+@mixin default-margin {
+    margin: 7px 0;
+}
+@mixin card {
+    border: solid 2px $default-border;
+    background-color: $section-background;
+    height: 100px;
+    @include default-padding();
+    @include default-margin();
+}

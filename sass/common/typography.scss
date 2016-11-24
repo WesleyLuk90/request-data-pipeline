@@ -1,0 +1,10 @@
+@mixin section-header {
+    margin: 0 0 7px;
+    font-size: 2rem;
+    color: $c-text-regular;
+    font-weight: bold;
+    height: 22px;
+}
+@mixin muted-text {
+    color: $c-text-muted;
+}

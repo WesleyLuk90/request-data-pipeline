@@ -1,0 +1,17 @@
+.data-source-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.data-source-list-item {
+    @include card();
+
+    &__name {
+        @include section-header();
+    }
+
+    &__url {
+        @include muted-text();
+    }
+}
