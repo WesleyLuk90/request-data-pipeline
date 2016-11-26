@@ -1,11 +1,11 @@
 const React = require('react');
 
-const ContentContainer = require('../containers/ContentContainer');
-const FieldList = require('../forms/FieldList');
-const TextInput = require('../forms/TextInput');
-const Button = require('../../elements/Button');
-const Module = require('../../Module');
-const ActionContainer = require('../forms/ActionContainer');
+const ContentContainer = require('../components/containers/ContentContainer');
+const FieldList = require('../components/forms/FieldList');
+const Button = require('../elements/Button');
+const Module = require('../Module');
+const ActionContainer = require('../components/forms/ActionContainer');
+const DataSourceForm = require('./DataSourceForm');
 
 class CreateDataSource extends React.Component {
     constructor(props) {
@@ -33,23 +33,18 @@ class CreateDataSource extends React.Component {
         this.createService.create();
     }
 
-    setDataSource(dataSource) {
-        this.setState({ dataSource });
-        this.forceUpdate();
+    onChange() {
+        this.store.update(this.state.dataSource);
     }
 
-    createOnChange(property) {
-        return (e) => {
-            this.state.dataSource[property] = e.target.value;
-            this.store.update(this.state.dataSource);
-        };
+    setDataSource(dataSource) {
+        this.setState({ dataSource });
     }
 
     render() {
         return (<ContentContainer>
+            <DataSourceForm dataSource={this.state.dataSource} onChange={() => this.onChange()} />
             <FieldList>
-                <TextInput label="Name" onChange={this.createOnChange('name')} value={this.state.dataSource.name} />
-                <TextInput label="URL" onChange={this.createOnChange('url')} value={this.state.dataSource.url} />
                 <ActionContainer>
                     <Button type="create" onClick={e => this.onClickCreate(e)}>Create</Button>
                 </ActionContainer>

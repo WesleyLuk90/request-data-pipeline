@@ -11,5 +11,7 @@ describe('RouteLoader', () => {
         routeLoader.load();
 
         expect(routeList.getRoute('data-sources')).toBeTruthy();
+        expect(routeList.getRoute('data-sources.create')).toBeTruthy();
+        expect(routeList.getRoute('data-sources.edit')).toBeTruthy();
     });
 });

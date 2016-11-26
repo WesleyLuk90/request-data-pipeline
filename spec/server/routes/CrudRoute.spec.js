@@ -27,6 +27,7 @@ describe('CrudRoute', () => {
             '/api/my-class/update',
             '/api/my-class/delete',
             '/api/my-class/list',
+            '/api/my-class/get',
         ];
         expect(definedRoutes).toEqualInAnyOrder(expectedRoutes);
     });
@@ -40,6 +41,7 @@ describe('CrudRoute', () => {
                 update: jasmine.createSpy('update').and.returnValue(Promise.resolve()),
                 delete: jasmine.createSpy('delete').and.returnValue(Promise.resolve()),
                 list: jasmine.createSpy('list').and.returnValue(Promise.resolve([new RestMyClass(), new RestMyClass()])),
+                get: jasmine.createSpy('get').and.returnValue(Promise.resolve(new RestMyClass())),
             };
             const factory = new StorageServiceFactory({});
             spyOn(factory, 'create').and.returnValue(storage);
@@ -47,7 +49,7 @@ describe('CrudRoute', () => {
         });
 
         it('should handle create requests', (done) => {
-            route.create({ body: {} })
+            route.create({ body: { my_class: {} } })
                 .then((res) => {
                     expect(res.toJson()).toEqual({ success: true, my_class: {} });
                 })
@@ -56,7 +58,7 @@ describe('CrudRoute', () => {
         });
 
         it('should handle update requests', (done) => {
-            route.update({ body: {} })
+            route.update({ body: { my_class: {} } })
                 .then((res) => {
                     expect(res.toJson()).toEqual({ success: true, my_class: {} });
                 })
@@ -65,7 +67,7 @@ describe('CrudRoute', () => {
         });
 
         it('should handle delete requests', (done) => {
-            route.delete({ body: {} })
+            route.delete({ body: { my_class: {} } })
                 .then((res) => {
                     expect(res.toJson()).toEqual({ success: true });
                 })
@@ -78,6 +80,16 @@ describe('CrudRoute', () => {
                 .then((res) => {
                     expect(res.toJson()).toEqual({ success: true, my_classes: [{}, {}] });
                     expect(storage.list).toHaveBeenCalledWith({ my: 'filters' });
+                })
+                .catch(fail)
+                .then(done);
+        });
+
+        it('should handle get requests', (done) => {
+            route.get({ body: { id: 'abc' } })
+                .then((res) => {
+                    expect(res.toJson()).toEqual({ success: true, my_class: {} });
+                    expect(storage.get).toHaveBeenCalledWith('abc');
                 })
                 .catch(fail)
                 .then(done);

@@ -7,7 +7,8 @@ class Router {
         this.routeStream = new Rx.BehaviorSubject();
     }
 
-    go(route) {
+    go(route, parameters) {
+        this.parameters = parameters;
         this.routeState.setCurrentState(route);
 
         this.routeStream.onNext(this.routeState.getCurrentRoute());
@@ -15,6 +16,10 @@ class Router {
 
     getRouteStream() {
         return this.routeStream;
+    }
+
+    getParameter(key) {
+        return this.parameters[key];
     }
 }
 

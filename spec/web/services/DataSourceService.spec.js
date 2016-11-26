@@ -9,6 +9,7 @@ describe('DataSourceService', () => {
         restService = {
             create: jasmine.createSpy('create').and.returnValue(Promise.resolve('create value')),
             list: jasmine.createSpy('list').and.returnValue(Promise.resolve('list value')),
+            update: jasmine.createSpy('update').and.returnValue(Promise.resolve('update value')),
         };
         restServiceFactory = {
             create: jasmine.createSpy('RestServiceFactory.create').and.returnValue(restService),
@@ -43,6 +44,17 @@ describe('DataSourceService', () => {
 
         promise
             .then(res => expect(res).toBe('list value'))
+            .catch(fail)
+            .then(done);
+    });
+
+    it('should call update', (done) => {
+        const dataSourceService = new DataSourceService(restServiceFactory);
+        const promise = dataSourceService.update('something');
+        expect(restService.update).toHaveBeenCalled();
+
+        promise
+            .then(res => expect(res).toBe('update value'))
             .catch(fail)
             .then(done);
     });

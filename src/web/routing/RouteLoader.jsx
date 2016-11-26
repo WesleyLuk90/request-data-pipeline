@@ -1,7 +1,8 @@
 const React = require('react');
 
 const DataSources = require('../components/DataSources');
-const CreateDataSource = require('../components/pages/CreateDataSource');
+const CreateDataSource = require('../data-sources/CreateDataSource');
+const DataSourcesEditPage = require('../data-sources/DataSourcesEditPage');
 
 class RouteLoader {
     constructor(routeList, module) {
@@ -15,6 +16,9 @@ class RouteLoader {
         });
         this.routeList.register('data-sources.create', {
             view: (<CreateDataSource module={this.module} />),
+        });
+        this.routeList.register('data-sources.edit', {
+            view: (<DataSourcesEditPage module={this.module} />),
         });
     }
 }

@@ -1,5 +1,4 @@
 const superagent = require('superagent');
-const _ = require('lodash');
 
 const RestUtils = require('../../shared/RestUtils');
 const UrlFormatter = require('../../shared/UrlFormatter');
@@ -16,7 +15,7 @@ class RestService {
     create(restObject) {
         return superagent
             .post(UrlFormatter.getCreateUrl(this.restClass))
-            .send(restObject.toJsonObject())
+            .send(this.modelToBody(restObject))
             .then(res => this.responseToModel(res));
     }
 
@@ -25,6 +24,26 @@ class RestService {
             .post(UrlFormatter.getListUrl(this.restClass))
             .send({})
             .then(res => this.responseToModels(res));
+    }
+
+    get(id) {
+        return superagent
+            .post(UrlFormatter.getGetUrl(this.restClass))
+            .send({ id })
+            .then(res => this.responseToModel(res));
+    }
+
+    update(restObject) {
+        return superagent
+            .post(UrlFormatter.getUpdateUrl(this.restClass))
+            .send(this.modelToBody(restObject))
+            .then(res => this.responseToModel(res));
+    }
+
+    modelToBody(restObject) {
+        const body = {};
+        body[UrlFormatter.getModelKey(this.restClass)] = restObject.toJsonObject();
+        return body;
     }
 
     responseToModel(response) {

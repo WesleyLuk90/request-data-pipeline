@@ -26,6 +26,7 @@ class Response {
 
     static error(error) {
         const response = new Response();
+        // console.log(error);
         response.data = { error: true };
         return response;
     }

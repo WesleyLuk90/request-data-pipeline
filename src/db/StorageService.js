@@ -59,7 +59,7 @@ class StorageService {
         if (typeof id === 'string') {
             return ObjectId.createFromHexString(id);
         }
-        throw new Error(`Invalid object id ${id} of type ${id.constructor.name}`);
+        throw new Error(`Invalid object id '${id}'`);
     }
 
     createClass(data) {

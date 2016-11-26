@@ -12,6 +12,14 @@ class DataSourceService {
     list() {
         return this.service.list();
     }
+
+    get(id) {
+        return this.service.get(id);
+    }
+
+    update(dataSource) {
+        return this.service.update(dataSource);
+    }
 }
 
 DataSourceService.$name = 'dataSourceService';

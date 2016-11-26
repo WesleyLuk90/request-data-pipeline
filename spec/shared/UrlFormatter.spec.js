@@ -12,6 +12,7 @@ describe('UrlFormatter', () => {
         expect(UrlFormatter.getDeleteUrl(RestSomeClass)).toBe('/api/some-class/delete');
         expect(UrlFormatter.getUpdateUrl(RestSomeClass)).toBe('/api/some-class/update');
         expect(UrlFormatter.getListUrl(RestSomeClass)).toBe('/api/some-class/list');
+        expect(UrlFormatter.getGetUrl(RestSomeClass)).toBe('/api/some-class/get');
     });
 
     it('should get class base name', () => {

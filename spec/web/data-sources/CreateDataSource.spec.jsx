@@ -1,11 +1,11 @@
 const React = require('react');
 const { shallow } = require('enzyme');
 
-const CreateDataSource = require('../../../../src/web/components/pages/CreateDataSource');
-const CreateDataSourceStore = require('../../../../src/web/stores/CreateDataSourceStore');
-const RestDataSource = require('../../../../src/shared/RestDataSource');
-const Module = require('../../../../src/web/Module');
-const Button = require('../../../../src/web/elements/Button');
+const CreateDataSource = require('../../../src/web/data-sources/CreateDataSource');
+const CreateDataSourceStore = require('../../../src/web/stores/CreateDataSourceStore');
+const RestDataSource = require('../../../src/shared/RestDataSource');
+const Module = require('../../../src/web/Module');
+const Button = require('../../../src/web/elements/Button');
 
 describe('CreateDataSource', () => {
     let module;

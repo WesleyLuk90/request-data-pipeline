@@ -27,22 +27,29 @@ class CrudRoute extends BaseRoute {
         routeWrapper.post(
             UrlFormatter.getListUrl(this.restClass),
             (req, res) => this.list(req, res));
+        routeWrapper.post(
+            UrlFormatter.getGetUrl(this.restClass),
+            (req, res) => this.get(req, res));
+    }
+
+    getModelKey() {
+        return UrlFormatter.getModelKey(this.restClass);
     }
 
     create(req) {
-        const instance = this.loadInstance(req.body);
+        const instance = this.loadInstance(req.body[this.getModelKey()]);
         return this.storage.create(instance)
             .then(() => Response.successWithModel(instance));
     }
 
     update(req) {
-        const instance = this.loadInstance(req.body);
+        const instance = this.loadInstance(req.body[this.getModelKey()]);
         return this.storage.update(instance)
             .then(() => Response.successWithModel(instance));
     }
 
     delete(req) {
-        const instance = this.loadInstance(req.body);
+        const instance = this.loadInstance(req.body[this.getModelKey()]);
         return this.storage.delete(instance)
             .then(() => Response.success());
     }
@@ -51,6 +58,12 @@ class CrudRoute extends BaseRoute {
         const filters = req.body.filters;
         return this.storage.list(filters)
             .then(values => Response.successWithModels(values, this.restClass));
+    }
+
+    get(req) {
+        const id = req.body.id;
+        return this.storage.get(id)
+            .then(value => Response.successWithModel(value));
     }
 
     loadInstance(data) {

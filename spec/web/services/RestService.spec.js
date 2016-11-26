@@ -27,7 +27,7 @@ describe('RestService', () => {
         it('should allow creating with get', (done) => {
             mock.post('/api/data-source/create', (req) => {
                 expect(req.url).toBe('/api/data-source/create');
-                expect(req.body).toEqual(new RestDataSource().toJsonObject());
+                expect(req.body.data_source).toEqual(new RestDataSource().toJsonObject());
                 return {
                     body: {
                         data_source: new RestDataSource().toJsonObject(),
@@ -58,13 +58,33 @@ describe('RestService', () => {
                 };
             });
 
-            const createCall = service.list();
+            const listCall = service.list();
 
-            createCall
+            listCall
                 .then((dataSource) => {
                     expect(Array.isArray(dataSource)).toBe(true);
                     expect(dataSource[0] instanceof RestDataSource).toBe(true);
                     expect(dataSource[1] instanceof RestDataSource).toBe(true);
+                })
+                .catch(fail)
+                .then(done);
+        });
+        it('should update with update', (done) => {
+            mock.post('/api/data-source/update', (req) => {
+                expect(req.url).toBe('/api/data-source/update');
+                expect(req.body.data_source).toEqual(new RestDataSource().toJsonObject());
+                return {
+                    body: {
+                        data_source: new RestDataSource().toJsonObject(),
+                    },
+                };
+            });
+
+            const updateCall = service.update(new RestDataSource());
+
+            updateCall
+                .then((dataSource) => {
+                    expect(dataSource instanceof RestDataSource).toBe(true);
                 })
                 .catch(fail)
                 .then(done);

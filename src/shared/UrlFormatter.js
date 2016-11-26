@@ -31,6 +31,10 @@ class UrlFormatter {
         return `${UrlFormatter.getBaseEndpoint(restClass)}/list`;
     }
 
+    static getGetUrl(restClass) {
+        return `${UrlFormatter.getBaseEndpoint(restClass)}/get`;
+    }
+
     static getModelKey(restClass) {
         return _.snakeCase(UrlFormatter.getClassBaseName(restClass));
     }
